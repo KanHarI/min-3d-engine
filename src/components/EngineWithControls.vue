@@ -15,6 +15,7 @@ import { defineComponent } from "vue";
 
 export interface DataType {
   isControlsCollapsed: boolean;
+  renderInterval: number | undefined;
 }
 
 export default defineComponent({
@@ -22,9 +23,28 @@ export default defineComponent({
   data(): DataType {
     return {
       isControlsCollapsed: false,
+      renderInterval: undefined,
     };
   },
-  methods: {},
+  mounted() {
+    const canvas = this.$refs.renderingCanvas as HTMLCanvasElement;
+    // Fill with black
+    const ctx = canvas.getContext("2d");
+    if (!ctx) {
+      throw new Error("Could not get 2d context");
+    }
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    this.renderInterval = setInterval(this.rerender, 1000 / 60);
+  },
+  beforeUnmount() {
+    clearInterval(this.renderInterval);
+  },
+  methods: {
+    rerender() {
+      // render the scene
+    },
+  },
 });
 </script>
 

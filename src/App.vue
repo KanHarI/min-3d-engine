@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
+    <router-link to="/cube">Cube</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view />
@@ -16,6 +16,11 @@
 }
 
 nav {
+  position: absolute;
+  // Center top
+  top: 0;
+  left: 40%;
+  z-index: 2;
   padding: 30px;
 
   a {
